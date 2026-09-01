@@ -47,75 +47,75 @@ class Sprite(pygame.sprite.Sprite):
             self.velocity[0] = -self.velocity[0]
             boundary_hit = True
 
-            if self.rect.top <= 0 or self.rect.bottom >= 400:
-                self.velocity[1] = -self.velocity[1]
-                boundary_hit = True
+        if self.rect.top <= 0 or self.rect.bottom >= 400:
+            self.velocity[1] = -self.velocity[1]
+            boundary_hit = True
 
 
-                if boundary_hit:
-                    pygame.event.post(pygame.event.Event(SPRITE_COLOR_CHANGE_EVENT))
-                    pygame.event.post(pygame.event.Event(BACKGROUND_COLOR_CHANGE_EVENT))
+        if boundary_hit:
+            pygame.event.post(pygame.event.Event(SPRITE_COLOR_CHANGE_EVENT))
+            pygame.event.post(pygame.event.Event(BACKGROUND_COLOR_CHANGE_EVENT))
 
 
-            def change_color(self):
-                self.image.fill(random.choice([YELLOW, MAGENTA, ORANGE, WHITE]))
-
-
-
-            def change_background_color():
-                global bg_color
-                bg_color = random.choice([BLUE, LIGHTBLUE, DARKBLUE])
+    def change_color(self):
+            self.image.fill(random.choice([YELLOW, MAGENTA, ORANGE, WHITE]))
 
 
 
-        all_sprites_list = pygame.sprite.Group()
-
-        sp1 = Sprite(WHITE, 20, 30)
-
-        sp1.rect.x = random.randint(0, 480)
-        sp1.rect.y = random.randint(0, 370)
-
-        all_sprites_list.add(sp1)
+def change_background_color():
+    global bg_color
+    bg_color = random.choice([BLUE, LIGHTBLUE, DARKBLUE])
 
 
-        screen = pygame.display.set_mode((500, 400))
 
-        pygame.display.set_caption("Boundary Sprite")
+all_sprites_list = pygame.sprite.Group()
 
-        bg_color = BLUE
+sp1 = Sprite(WHITE, 20, 30)
 
-        screen.fill(bg_color)
+sp1.rect.x = random.randint(0, 480)
+sp1.rect.y = random.randint(0, 370)
 
-
-        exit = False
-
-        clock = pygame.time.Clock()
+all_sprites_list.add(sp1)
 
 
-        while not exit:
+screen = pygame.display.set_mode((500, 400))
 
-            for event in pygame.event.get():
+pygame.display.set_caption("Boundary Sprite")
 
-                if event.type == pygame.QUIT:
-                    exit = True
+bg_color = BLUE
 
-                elif event.type == SPRITE_COLOR_CHANGE_EVENT:
-                    sp1.change_color()
-
-                elif event.type == BACKGROUND_COLOR_CHANGE_EVENT:
-                    change_background_color()
+screen.fill(bg_color)
 
 
-            all_sprites_list.update()
+exit = False
 
-            screen.fill(bg_color)
-
-            all_sprites_list.draw(screen)
+clock = pygame.time.Clock()
 
 
-            pygame.display.flip()
+while not exit:
 
-            clock.tick(240)
+    for event in pygame.event.get():
+
+        if event.type == pygame.QUIT:
+            exit = True
+
+        elif event.type == SPRITE_COLOR_CHANGE_EVENT:
+            sp1.change_color()
+
+        elif event.type == BACKGROUND_COLOR_CHANGE_EVENT:
+            change_background_color()
+
+
+all_sprites_list.update()
+
+screen.fill(bg_color)
+
+all_sprites_list.draw(screen)
+
+
+pygame.display.flip()
+
+clock.tick(240)
 
 
 pygame.quit()
